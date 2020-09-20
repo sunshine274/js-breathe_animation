@@ -1,22 +1,22 @@
-let counter = 0;
-let timeleft = 65;
+const container = document.getElementById('container');
+const text = document.getElementById('text');
 
-function convertSeconds(s) {
-    let min = floor(s/60);
-    let sec = s%60;
-    return nf(min,2) + ':' + nf(sec,2);
+const totalTime = 7500;
+const breatheTime = (totalTime / 5) * 2;
+const holdTime = totalTime / 5 ;
+
+function breathAnimation() {
+text.innerText = 'Breathe In!';
+container.className = 'container grow';
+
+setTimeout(()=> {
+text.innerText = 'Hold';
+
+setTimeout(()=> {
+    text.innerText = 'Breathe Out!';
+    container.className = 'container shrink'
+}, holdTime);
+}, breatheTime);
 }
 
-function setup(){
-   noCanvas();
-   
-   let timer = select('#timer');
-   timer.html(counter);
-
-   function timeIt(){
-    counter ++;
-    timer.html(timeleft - counter);
-   }
-
-   setInterval( timeIt, 1000);
-}
+setInterval(breathAnimation, totalTime);
